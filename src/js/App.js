@@ -225,13 +225,11 @@ class App extends React.Component {
             return (
               <div>
                 {/* {c.buyerName} -- {c.buyer} From Account {c.address} # bought this Car.  */}
-                {c.buyer} ---
+                {  c.age.toString() } ---
 
                 {c.blockNumber} ---
 
-                { web3.toUtf8(c.userName) } ---
-
-                {  c.age.toString() }
+                { web3.toUtf8(c.userName) }
 
               </div>
             );
@@ -280,7 +278,7 @@ class App extends React.Component {
                       Add Tracking Info
                     </button>{" "}
                     &nbsp;
-                    <button
+                    {/* <button
                       className="btn btn-info btn-buyerInfo"
                       type="button"
                       data-toggle="modal"
@@ -289,7 +287,7 @@ class App extends React.Component {
                       style={{ display: "normal" }}
                     >
                       Buyer Info
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
@@ -326,7 +324,7 @@ class App extends React.Component {
                   placeholder="Add Tracking Info"
                 />
                 <br />
-                <input type="number" className="form-control" id="age" placeholder="Age" />
+                <input type="number" className="form-control" id="age" placeholder="Year" />
               </div>
               <div className="modal-footer">
                 <button
