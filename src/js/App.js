@@ -224,12 +224,14 @@ class App extends React.Component {
           {this.state.events.map(c => {
             return (
               <div>
-                {c.buyerName} -- {c.buyer} From Account {c.address} # bought this Car. {c.blockNumber} 
+                {/* {c.buyerName} -- {c.buyer} From Account {c.address} # bought this Car.  */}
+                {c.buyer} ---
 
-                { web3.toUtf8(c.userName) }
+                {c.blockNumber} ---
+
+                { web3.toUtf8(c.userName) } ---
 
                 {  c.age.toString() }
-
 
               </div>
             );
@@ -259,6 +261,9 @@ class App extends React.Component {
                       ID: <span className="id">{c.id}</span>
                     </li>
                     <li className="list-group-item">
+                      VIN: <span className="VIN">{c.VIN}</span>
+                    </li>
+                    <li className="list-group-item">
                       Price: <span className="price">{c.price}</span>
                     </li>
                     <li className="list-group-item">Area: {c.area}</li>
@@ -272,7 +277,7 @@ class App extends React.Component {
                       data-target="#buyModal"
                       value={c.id}
                     >
-                      Buy
+                      Add Tracking Info
                     </button>{" "}
                     &nbsp;
                     <button
@@ -309,7 +314,7 @@ class App extends React.Component {
                 >
                   <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 className="modal-title">Buyer Info</h4>
+                <h4 className="modal-title">Car Tracking Info</h4>
               </div>
               <div className="modal-body">
                 <input type="hidden" id="id" value={this.state.itemid} />
@@ -318,7 +323,7 @@ class App extends React.Component {
                   type="text"
                   className="form-control"
                   id="name"
-                  placeholder="Name"
+                  placeholder="Add Tracking Info"
                 />
                 <br />
                 <input type="number" className="form-control" id="age" placeholder="Age" />

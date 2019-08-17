@@ -1,8 +1,9 @@
 [{
     "id": 0,
-    "type": "Accdient Car",
-    "note": "Front grill opened",
+    "VIN": "5YFBU4EE2CP043919",
+    "type": "2018 Toyoda Corolla",
+    "note": "2018 Toyoda Corolla for sale",
     "picture": "src/images/2017Toyoda.jpg",
-    "area": "85A/59",
+    "area": "Toronto",
     "price": 0.11
 }]
