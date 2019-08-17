@@ -7,19 +7,10 @@ import CarVinTracking from "../../build/contracts/CarVinTracking.json";
 import data from "../data.json";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
-// import { Route } from 'react-router-dom'
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "../styles/app.css";
-// import Home from './container/Home';
-// import DBPlatform from './container/DBPlatform';
-// import MarketPlace from './container/MarketPlace';
-// import ReverseAuction from './container/ReverseAuction';
-// import Help from './container/Help';
-
-// import Menu from "./Menu.js";
 import $ from "jquery";
 import utf8 from "utf8";
-// import ProductCarousel from "./container/ProductCarousel.js";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -29,7 +20,7 @@ class App extends React.Component {
       buyerAddress: "",
       buyerName: "",
       buyerAge: "",
-      events: [{ buyer: "", id: "" }]
+      events: [{ buyer: "", id: "", address: "", blockNumber: "", userName: "", age: 0 }]
     };
 
     this.pic = [];
@@ -99,7 +90,11 @@ class App extends React.Component {
             this.setState({
               events: this.state.events.concat({
                 buyer: event.args._buyer,
-                id: event.args._id.toString()
+                id: event.args._id.toString(),
+                address: event.address,
+                blockNumber: event.blockNumber,
+                userName: event.args._name,
+                age: event.args._age
               })
             });
           } else {
@@ -174,7 +169,7 @@ class App extends React.Component {
     let id = $("#id").val();
     let name = $("#name").val();
     let price = $("#price").val();
-    let age = 22;
+    let age = $("#age").val();
 
     this.web3.eth.getAccounts((error, accounts) => {
       if (error) {
@@ -193,7 +188,7 @@ class App extends React.Component {
         })
         .then(() => {
           $("#name").val("");
-          // $('#age').val('');
+          $('#age').val('');
           $("#buyModal").modal("hide");
         })
         .catch(err => {
@@ -229,7 +224,13 @@ class App extends React.Component {
           {this.state.events.map(c => {
             return (
               <div>
-                {c.buyerName} -- {c.buyer} From Account {c.id} # bought this Car. 
+                {c.buyerName} -- {c.buyer} From Account {c.address} # bought this Car. {c.blockNumber} 
+
+                { web3.toUtf8(c.userName) }
+
+                {  c.age.toString() }
+
+
               </div>
             );
           })}
@@ -320,7 +321,7 @@ class App extends React.Component {
                   placeholder="Name"
                 />
                 <br />
-                {/* <input type="number" className="form-control" id="age" placeholder="Age" /> */}
+                <input type="number" className="form-control" id="age" placeholder="Age" />
               </div>
               <div className="modal-footer">
                 <button

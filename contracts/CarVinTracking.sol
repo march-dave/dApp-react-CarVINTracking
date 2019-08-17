@@ -13,7 +13,9 @@ contract CarVinTracking {
 
     event LogBuyCarVinTracking(
         address _buyer,
-        uint _id
+        uint _id,
+        bytes32 _name,
+        uint _age
     );
 
     constructor() public {
@@ -26,7 +28,7 @@ contract CarVinTracking {
         buyerInfo[_id] = Buyer(msg.sender, _name, _age);
 
         owner.transfer(msg.value);
-        emit LogBuyCarVinTracking(msg.sender, _id);
+        emit LogBuyCarVinTracking(msg.sender, _id, _name, _age);
     }
 
     function getBuyerInfo(uint _id) public view returns (address, bytes32, uint) {
