@@ -387,7 +387,7 @@ class App extends React.Component {
                     >
                       Add Tracking Info
                     </button>{" "}
-                    &nbsp;
+                    {/* &nbsp;
                      <button
                        className="btn btn-info btn-buy2"
                        type="button"
@@ -396,7 +396,7 @@ class App extends React.Component {
                        value={c.id}
                     >
                       Buy Now
-                    </button>
+                    </button> */}
                     {/* <button
                       className="btn btn-info btn-buyerInfo"
                       type="button"
