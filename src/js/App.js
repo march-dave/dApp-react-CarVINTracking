@@ -75,6 +75,7 @@ class App extends React.Component {
       if (error) console.log(error);
 
       this.listenToEvents();
+      this.listenToEvents2();
     });
   }
 
@@ -101,6 +102,38 @@ class App extends React.Component {
             console.error(error);
           }
           this.loadCarVINTracking();
+          
+          // this.pic.map( (c, i) => {
+          //   console.log( i );
+          // })
+
+        });
+    });
+  };
+
+  listenToEvents2 = () => {
+    this.contracts.deployed().then(instance => {
+      instance
+        .LogBuyCarVinTracking2({}, { fromBlock: 0, toBlock: "latest" })
+        .watch((error, event) => {
+          if (!error) {
+
+            console.log('watch', event)
+
+            // this.setState({
+            //   events: this.state.events.concat({
+            //     buyer: event.args._buyer,
+            //     id: event.args._id.toString(),
+            //     address: event.address,
+            //     blockNumber: event.blockNumber,
+            //     userName: event.args._name,
+            //     age: event.args._age
+            //   })
+            // });
+          } else {
+            console.error(error);
+          }
+          this.loadCarVINTracking2();
           
           // this.pic.map( (c, i) => {
           //   console.log( i );
@@ -150,13 +183,57 @@ class App extends React.Component {
 
             // $(".panel-VINTracking")
             //   .eq(i)
-            //   .find(".btn-buy")
+            //   .find(".btn-buy2")
             //   .text("Sold")
             //   .attr("disabled", true);
             // $(".panel-VINTracking")
             //   .eq(i)
             //   .find(".btn-buyerInfo")
             //   .removeAttr("style");
+          }
+        }
+      })
+      .catch(function(err) {
+        console.log(err.message);
+      });
+  };
+
+
+  loadCarVINTracking2 = () => {
+    this.contracts
+      .deployed()
+      .then(instance => {
+        return instance.getAllBuyers.call();
+      })
+      .then(buyers => {
+        for (let i = 0; i < buyers.length; i++) {
+          // item already sold
+          if (buyers[i] !== "0x0000000000000000000000000000000000000000") {
+            // images search and replace to sold image
+            var imgType = $(".panel-VINTracking")
+              .eq(i)
+              .find("img")
+              .attr("src")
+              .substr(11);
+
+            switch (imgType) {
+              case "2018Toyoda.jpg":
+                $(".panel-VINTracking")
+                  .eq(i)
+                  .find("img")
+                  .attr("src", "src/images/2018ToyodaSold.jpg");
+                break;
+            }
+
+            $(".panel-VINTracking")
+              .eq(i)
+              .find(".btn-buy2")
+              .text("Sold")
+              .attr("disabled", true);
+            $(".panel-VINTracking")
+              .eq(i)
+              .find(".btn-buyerInfo")
+              .removeAttr("style");
           }
         }
       })
@@ -182,6 +259,39 @@ class App extends React.Component {
         .then(instance => {
           let nameUtf8Encoded = utf8.encode(name);
           return instance.buyCarVinTracking(id, web3.toHex(nameUtf8Encoded), age, {
+            from: account,
+            value: price
+          });
+        })
+        .then(() => {
+          $("#name").val("");
+          $('#age').val('');
+          $("#buyModal").modal("hide");
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
+    });
+  };
+
+
+  BuyCarVINTracking2 = e => {
+    let id = $("#id").val();
+    let name = $("#name").val();
+    let price = $("#price").val();
+    let age = $("#age").val();
+
+    this.web3.eth.getAccounts((error, accounts) => {
+      if (error) {
+        console.log(error);
+      }
+
+      let account = accounts[0];
+      this.contracts
+        .deployed()
+        .then(instance => {
+          let nameUtf8Encoded = utf8.encode(name);
+          return instance.buyCarVinTracking2(id, web3.toHex(nameUtf8Encoded), age, {
             from: account,
             value: price
           });
@@ -278,6 +388,15 @@ class App extends React.Component {
                       Add Tracking Info
                     </button>{" "}
                     &nbsp;
+                     <button
+                       className="btn btn-info btn-buy2"
+                       type="button"
+                       data-toggle="modal"
+                       data-target="#buyModal2"
+                       value={c.id}
+                    >
+                      Buy Now
+                    </button>
                     {/* <button
                       className="btn btn-info btn-buyerInfo"
                       type="button"
@@ -345,6 +464,59 @@ class App extends React.Component {
             </div>
           </div>
         </div>
+
+
+        <div
+          className="modal fade"
+          role="dialog"
+          id="buyModal2"
+          ref={box => (this.buyModalBox = box)}
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 className="modal-title">Buy a Car</h4>
+              </div>
+              <div className="modal-body">
+                <input type="hidden" id="id" value={this.state.itemid} />
+                <input type="hidden" id="price" value={this.state.itemPrice} />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  placeholder="Note"
+                />
+                <br />
+                <input type="number" className="form-control" id="age" placeholder="Year" />
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-default"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={this.BuyCarVINTracking2}
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <div
           className="modal fade"

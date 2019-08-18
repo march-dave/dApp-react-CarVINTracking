@@ -18,6 +18,13 @@ contract CarVinTracking {
         uint _age
     );
 
+     event LogBuyCarVinTracking2(
+        address _buyer,
+        uint _id,
+        bytes32 _name,
+        uint _age
+    );
+
     constructor() public {
         owner = msg.sender;
     }
@@ -29,6 +36,15 @@ contract CarVinTracking {
 
         owner.transfer(msg.value);
         emit LogBuyCarVinTracking(msg.sender, _id, _name, _age);
+    }
+
+    function buyCarVinTracking2(uint _id, bytes32 _name, uint _age) public payable {
+        require(_id >= 0 && _id <= 9);
+        buyers[_id] = msg.sender;
+        buyerInfo[_id] = Buyer(msg.sender, _name, _age);
+
+        owner.transfer(msg.value);
+        emit LogBuyCarVinTracking2(msg.sender, _id, _name, _age);
     }
 
     function getBuyerInfo(uint _id) public view returns (address, bytes32, uint) {
