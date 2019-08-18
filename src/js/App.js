@@ -330,12 +330,15 @@ class App extends React.Component {
           </div>
         </div> */}
 
-        <div id="events">
+        <div id="events" style={{background: "darkgray"}}>
           {this.state.events.map(c => {
             return (
               <div>
                 {/* {c.buyerName} -- {c.buyer} From Account {c.address} # bought this Car.  */}
-                {  c.age.toString() } ---
+
+                {/* { c.age.toString() !==0 ? c.age.toString() : ''} */}
+
+                {c.age.toString() } ---
 
                 {c.blockNumber} ---
 
