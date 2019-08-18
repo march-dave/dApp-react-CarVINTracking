@@ -378,7 +378,7 @@ class App extends React.Component {
                   </ul>
 
                   <div className="card-body">
-                    <button
+                    <button style={{ backgroundColor: "red" }}
                       className="btn btn-info btn-buy"
                       type="button"
                       data-toggle="modal"
