@@ -167,18 +167,6 @@ class App extends React.Component {
                   .find("img")
                   .attr("src", "src/images/2018Toyoda.jpg");
                 break;
-              case "turbofan-engine.jpg":
-                $(".panel-VINTracking")
-                  .eq(i)
-                  .find("img")
-                  .attr("src", "src/images/turbofan-engine_sold.jpg");
-                break;
-              case "wankel-engine.jpg":
-                $(".panel-VINTracking")
-                  .eq(i)
-                  .find("img")
-                  .attr("src", "src/images/wankel-engine_sold.jpg");
-                break;
             }
 
             // $(".panel-VINTracking")
