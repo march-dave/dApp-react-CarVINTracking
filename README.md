@@ -10,7 +10,7 @@ https://github.com/march-dave/dApp-react-CarVinTracking
 ```
 $ yarn install
 $ yarn install -g webpack webpack-cli
-$ yarn install -g truffle
+$ yarn install -g truffle@4.1.13
 $ yarn run start
 ```
 
