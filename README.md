@@ -23,6 +23,9 @@ truffle migrate --compile-all --reset --network ropsten
 ## logo deployed into IPFS
 2018Toyoda.jpg - https://ipfs.io/ipfs/QmUj1DNqFQcVuwZEqJnc1z39pzXJwewEKsAamLgDpWEhVm
 
+## IPFS upload tools
+https://gitlab.com/ysangy/basic-ipfs-image
+and required .env below format
 
 ## To creat .env
 mnemonic="your mnemonic something something something"
