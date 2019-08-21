@@ -7,6 +7,7 @@ https://github.com/march-dave/dApp-react-CarVinTracking
 
 
 ## Getting Started at your local
+webpack 4 버전은 webpack-cli 을 설치를 함께 해야 한다.
 ```
 $ yarn install
 $ yarn install -g webpack webpack-cli
